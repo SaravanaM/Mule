@@ -11,6 +11,6 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<api-gateway:autodiscovery apiId="16624159" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="21945199-5f8b-4fcb-baca-5632c458ebf2" flowRef="hello-worldFlow" />
 	<flow name="hello-worldFlow" doc:id="8c2c65fc-c7c1-4ce1-9972-8476aee6e64a" >
 		<http:listener doc:name="Listener" doc:id="e25c0b6d-e3b2-4572-841c-b717724a281a" config-ref="HTTP_Listener_config" path="/hello"/>
-		<logger level="INFO" doc:name="Logger" doc:id="0ee3e93c-6e4a-4d3b-8044-c9c4427a9a90" message="Hello World"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0ee3e93c-6e4a-4d3b-8044-c9c4427a9a90" message="Hello World !!!!"/>
 	</flow>
 </mule>
