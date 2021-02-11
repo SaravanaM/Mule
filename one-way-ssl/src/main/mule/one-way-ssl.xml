@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<http:listener-config name="HTTPS_Listener_config" doc:name="HTTP Listener config" doc:id="a3cb6796-24d8-4711-a7d5-7d2346c4d036" >
+		<http:listener-connection protocol="HTTPS" host="0.0.0.0" port="8082" >
+			<tls:context >
+				<tls:trust-store path="server-truststore.jks" password="password" type="jks" />
+				<tls:key-store type="jks" path="server-keystore.jks" alias="mule-server" keyPassword="password" password="password" />
+			</tls:context>
+		</http:listener-connection>
+	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0b38acdb-39ab-49e1-9b9d-042caa2f9637" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="847272b7-d4b0-435a-9d6d-1e3ea069debb" >
+		<http:request-connection protocol="HTTPS" host="localhost" port="8082" >
+			<tls:context >
+				<tls:trust-store path="client-truststore.jks" password="password" type="jks" insecure="true"/>
+				<tls:key-store type="jks" path="client-keystore.jks" alias="mule-client" keyPassword="password" password="password" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<flow name="one-way-sslFlow" doc:id="0e07bb43-c438-416a-aa42-34689eecc69b" >
+		<http:listener doc:name="Listener" doc:id="861fa665-13a5-49f8-b7f0-489cb9e4b577" config-ref="HTTP_Listener_config" path="/unsecure"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0f724855-c4e5-47a2-8324-b890213a3e67" message="Unsecured Server"/>
+		<http:request method="GET" doc:name="Request" doc:id="0227df5c-9195-4004-b5fa-5917990ae3aa" config-ref="HTTP_Request_configuration" path="/onewayssl"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f26640d3-6351-4707-9d20-9cfd8ec85bc4" message="Call to secure server  successful"/>
+	</flow>
+	<flow name="one-way-sslFlow1" doc:id="3c3478cf-0093-46f8-867a-182f101b95e8" >
+		<http:listener doc:name="Listener" doc:id="0fbb4fd0-2cfe-4bdf-92b8-182552f7f89b" config-ref="HTTPS_Listener_config" path="/onewayssl"/>
+		<set-payload value="TwoWaySSL" doc:name="Set Payload" doc:id="fe449d36-ed22-4484-821d-33a5ccbb0a3f" />
+		<logger level="INFO" doc:name="Logger" doc:id="af8c9662-2561-4a8f-8a6f-54be79666a80" message="Success"/>
+	</flow>
+	
+</mule>
