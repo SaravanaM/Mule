@@ -35,5 +35,4 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<set-payload value="TwoWaySSL" doc:name="Set Payload" doc:id="fe449d36-ed22-4484-821d-33a5ccbb0a3f" />
 		<logger level="INFO" doc:name="Logger" doc:id="af8c9662-2561-4a8f-8a6f-54be79666a80" message="Success"/>
 	</flow>
-	
 </mule>
